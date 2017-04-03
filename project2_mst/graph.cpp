@@ -4,10 +4,10 @@
 
 ostream& operator<<(ostream & os, const Vertex & v) {
 	os << v.data << " -> ";
-	list<Vertex*>::const_iterator it;
-	for (it = v.adjvex.begin(); it != v.adjvex.end(); it++)
+	list<Arc>::const_iterator it;
+	for (it = v.outArcs.begin(); it != v.outArcs.end(); it++)
 	{
-		os << (**it).data << " , ";
+		os << "(" << (*it).weight << ")" << (*it).dst->data << " , ";
 	}
 	return os;
 }
@@ -37,22 +37,22 @@ bool Vertex::operator==(Vertex const & v)
 
 void Vertex::deleteAdj(Vertex& adj)
 {
-	list<Vertex*>::iterator it;
+	list<Arc>::iterator it;
 
-	for (it = adjvex.begin(); it != adjvex.end();)
+	for (it = outArcs.begin(); it != outArcs.end();)
 	{
-		if (*it == &adj)
+		if ((*it).dst == &adj)
 		{
-			adjvex.erase(it);
+			outArcs.erase(it);
 			break;
 		}
 	}
 }
 
 
-void Vertex::addAdj(Vertex& adj)
+void Vertex::addAdj(Vertex& adj,weightType w)
 {
-	adjvex.push_back(&adj);
+	outArcs.push_back(Arc(adj,w));
 }
 
 
@@ -82,10 +82,10 @@ void Graph::deleteUndirectedArc(int src, int dst)
 }
 
 
-void Graph::addUndirectedArc(int src, int dst)
+void Graph::addUndirectedArc(int src, int dst, weightType w)
 {
-	addDirectedArc(src, dst);
-	addDirectedArc(dst, src);
+	addDirectedArc(src, dst, w);
+	addDirectedArc(dst, src, w);
 }
 
 
@@ -111,13 +111,13 @@ void Graph::findAllRoute(Vertex &src, Vertex &dst)
 		searchRoute.pop_back();
 		return;
 	}
-	list<Vertex*>::iterator it;
-	for (it = src.adjvex.begin(); it != src.adjvex.end(); it++)
+	list<Arc>::iterator it;
+	for (it = src.outArcs.begin(); it != src.outArcs.end(); it++)
 	{
-		if (!(*it)->isSearched())
+		if (!(*it).dst->isSearched())
 		{
-			findAllRoute(**it, dst);
-			(*it)->unSearched();
+			findAllRoute(*(*it).dst, dst);
+			(*it).dst->unSearched();
 		}
 	}
 	searchRoute.pop_back();
@@ -136,12 +136,12 @@ void Graph::depthFirstSearch(Vertex &v)
 {
 	v.searched();
 	cout << v.data;
-	list<Vertex*>::iterator it;
-	for (it = v.adjvex.begin(); it != v.adjvex.end(); it++)
+	list<Arc>::iterator it;
+	for (it = v.outArcs.begin(); it != v.outArcs.end(); it++)
 	{
-		if (!(*it)->isSearched())
+		if (!(*it).dst->isSearched())
 		{
-			depthFirstSearch(**it);
+			depthFirstSearch(*(*it).dst);
 		}
 	}
 }
@@ -177,9 +177,9 @@ void Graph::addVertex(DataType dataInit)
 }
 
 
-void Graph::addDirectedArc(int src, int dst)
+void Graph::addDirectedArc(int src, int dst,weightType w)
 {
-	vertexes[src].addAdj(vertexes[dst]);
+	vertexes[src].addAdj(vertexes[dst], w);
 }
 
 

@@ -23,13 +23,13 @@ class Vertex
 	bool flagSearched;
 public:
 	DataType data;
-	list<Vertex*> adjvex;
+	list<Arc> outArcs;
 	Vertex() : flagSearched(false) {};
 	Vertex(DataType dataInit);
 	bool isSearched();
 	void searched();
 	void unSearched();
-	void addAdj(Vertex& adj);
+	void addAdj(Vertex& adj, weightType w);
 	void deleteAdj(Vertex& adj);
 	bool operator==(Vertex const & v);
 	
@@ -41,7 +41,7 @@ class Arc
 public:
 	double weight;
 	Vertex* dst;
-	Arc(double w, Vertex* d) :weight(w), dst(d) {};
+	Arc(Vertex& d, weightType w) :weight(w), dst(&d) {};
 };
 
 class Graph
@@ -54,8 +54,8 @@ public:
 	Graph() :numVertex(0) {};
 	void addVertex();
 	void addVertex(DataType dataInit);
-	void addDirectedArc(int src, int dst);
-	void addUndirectedArc(int src, int dst);
+	void addDirectedArc(int src, int dst, weightType w = 0);
+	void addUndirectedArc(int src, int dst, weightType w = 0);
 	void deleteDirectedArc(int src, int dst);
 	void deleteUndirectedArc(int src, int dst);
 	void unSearchAll();
