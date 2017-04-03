@@ -1,8 +1,7 @@
 #include "graph.h"
 
-/*函数实现*/
 
-ostream& operator<<(ostream & os, const Vertex & v) {
+ostream& operator<<(ostream & os, const Vertex& v) {
 	os << v.data << " -> ";
 	list<Arc>::const_iterator it;
 	for (it = v.outArcs.begin(); it != v.outArcs.end(); it++)
@@ -99,6 +98,17 @@ void Graph::unSearchAll()
 }
 
 
+//************************************
+// Method:    findAllRoute
+// FullName:  Graph::findAllRoute
+// Description: 找到从src到dst之间的所有路径
+//						改自dfs算法
+// Access:    public 
+// Returns:   void
+// Qualifier:
+// Parameter: Vertex & src
+// Parameter: Vertex & dst
+//************************************
 void Graph::findAllRoute(Vertex &src, Vertex &dst)
 {
 	static vector<Vertex*> searchRoute;
@@ -130,8 +140,16 @@ void Graph::findAllRoute(int src, int dst)
 	findAllRoute(vertexes[src], vertexes[dst]);
 }
 
-//递归实现
 
+//************************************
+// Method:    depthFirstSearch
+// FullName:  Graph::depthFirstSearch
+// Description: 深度优先算法，递归实现
+// Access:    public 
+// Returns:   void
+// Qualifier:
+// Parameter: Vertex & v
+//************************************
 void Graph::depthFirstSearch(Vertex &v)
 {
 	v.searched();

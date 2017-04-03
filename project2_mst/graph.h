@@ -9,15 +9,23 @@
 
 using namespace std;
 
-typedef char DataType;
-typedef double weightType;
+typedef char DataType;	//节点储存的数据类型
+typedef double weightType;	//边权重的数据类型
 
 class Arc;
 class Vertex;
 class Graph;
 
 
-/*类声明*/
+
+/*!
+ * \class Vertex
+ *
+ * \brief 图的节点
+ *
+ * \author Sky
+ * \date 四月 2017
+ */
 class Vertex
 {
 	bool flagSearched;
@@ -33,9 +41,19 @@ public:
 	void deleteAdj(Vertex& adj);
 	bool operator==(Vertex const & v);
 	
-	friend ostream& operator<<(ostream & os, const Vertex & v);
+	friend ostream& operator<<(ostream & os, const Vertex& v);
 };
 
+
+
+/*!
+ * \class Arc
+ *
+ * \brief 图的边
+ *
+ * \author Sky
+ * \date 四月 2017
+ */
 class Arc
 {
 public:
@@ -44,6 +62,16 @@ public:
 	Arc(Vertex& d, weightType w) :weight(w), dst(&d) {};
 };
 
+
+
+/*!
+ * \class Graph
+ *
+ * \brief 图，包含增删节点、边，dfs、所有路径、mst算法
+ *
+ * \author Sky
+ * \date 四月 2017
+ */
 class Graph
 {
 	int numVertex;
