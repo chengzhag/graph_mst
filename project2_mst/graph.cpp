@@ -1,7 +1,7 @@
 #include "graph.h"
 
 
-ostream& operator<<(ostream & os, const Vertex& v) {
+ostream& operator<<(ostream &os, const Vertex &v) {
 	os << v.data << " -> ";
 	list<Arc>::const_iterator it;
 	for (it = v.outArcs.begin(); it != v.outArcs.end(); it++)
@@ -12,8 +12,8 @@ ostream& operator<<(ostream & os, const Vertex& v) {
 }
 
 
-ostream& operator<<(ostream & os, const vector<Vertex*> v) {
-	vector<Vertex*>::const_iterator it;
+ostream& operator<<(ostream &os, const vector<Vertex *> v) {
+	vector<Vertex *>::const_iterator it;
 	for (it = v.begin(); it != v.end(); it++)
 	{
 		os << (*it)->data;
@@ -28,13 +28,13 @@ void Vertex::unSearched()
 }
 
 
-bool Vertex::operator==(Vertex const & v)
+bool Vertex::operator==(Vertex const &v)
 {
 	return this == &v;
 }
 
 
-void Vertex::deleteAdj(Vertex& adj)
+void Vertex::deleteAdj(Vertex &adj)
 {
 	list<Arc>::iterator it;
 
@@ -49,9 +49,9 @@ void Vertex::deleteAdj(Vertex& adj)
 }
 
 
-void Vertex::addAdj(Vertex& adj,weightType w)
+void Vertex::addAdj(Vertex &adj,weightType w)
 {
-	outArcs.push_back(Arc(adj,w));
+	outArcs.push_back(Arc(*this, adj, w));
 }
 
 

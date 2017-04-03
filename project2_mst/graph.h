@@ -41,7 +41,7 @@ public:
 	void deleteAdj(Vertex& adj);
 	bool operator==(Vertex const & v);
 	
-	friend ostream& operator<<(ostream & os, const Vertex& v);
+	friend ostream& operator<<(ostream &os, const Vertex &v);
 };
 
 
@@ -58,8 +58,9 @@ class Arc
 {
 public:
 	double weight;
-	Vertex* dst;
-	Arc(Vertex& d, weightType w) :weight(w), dst(&d) {};
+	Vertex *src, *dst;
+	Arc(Vertex &s, Vertex &d, weightType w) :
+		weight(w), src(&s), dst(&d) {};
 };
 
 
