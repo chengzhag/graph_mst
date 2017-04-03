@@ -4,7 +4,7 @@
 
 int main()
 {
-	Graph<char> directedGraph;
+	Graph directedGraph;
 	for (int i = 0; i < 5; i++)
 	{
 		directedGraph.addVertex('A' + i);
@@ -23,7 +23,7 @@ int main()
 	cout << "从E到D的所有路径：\n";
 	directedGraph.findAllRoute(4, 0);
 
-	Graph<char> undirectedGraph;
+	Graph undirectedGraph;
 	for (int i = 0; i < 5; i++)
 	{
 		undirectedGraph.addVertex('A' + i);
