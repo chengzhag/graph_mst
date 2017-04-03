@@ -18,7 +18,11 @@
 ### Prim伪码
 
 ```python
-def Prim(p)
+def Prim(G)
+    treeVertex=G.vertexes[0]
+    treeArc=[]
+    while treeVertex!=G.vertexes
+        
 
 ```
 
