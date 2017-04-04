@@ -1,6 +1,5 @@
 #include "graph.h"
 
-
 ostream& operator<<(ostream &os, const Vertex &v) {
 	os << v.data << " -> ";
 	list<Arc>::const_iterator it;
@@ -17,6 +16,15 @@ ostream& operator<<(ostream &os, const vector<Vertex *> v) {
 	for (it = v.begin(); it != v.end(); it++)
 	{
 		os << (*it)->data;
+	}
+	return os;
+}
+
+ostream& operator<<(ostream &os, const Graph &g) {
+	vector<Vertex>::const_iterator it;
+	for (it = g.vertexes.begin(); it != g.vertexes.end(); it++)
+	{
+		cout << *it << endl;
 	}
 	return os;
 }
@@ -165,9 +173,10 @@ void Graph::depthFirstSearch(Vertex &v)
 }
 
 
-void Graph::depthFirstSearch(int src)
+vector<Vertex*> Graph::depthFirstSearch(int src)
 {
 	unSearchAll();
+
 	depthFirstSearch(vertexes[src]);
 }
 
@@ -178,14 +187,7 @@ void Graph::deleteDirectedArc(int src, int dst)
 }
 
 
-ostream& operator<<(ostream &os, const Graph &g) {
-	vector<Vertex>::const_iterator it;
-	for (it = g.vertexes.begin(); it != g.vertexes.end(); it++)
-	{
-		cout << *it << endl;
-	}
-	return os;
-}
+
 
 
 void Graph::addVertex(DataType dataInit)

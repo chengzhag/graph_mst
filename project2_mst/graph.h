@@ -42,6 +42,7 @@ public:
 	bool operator==(Vertex const & v);
 	
 	friend ostream& operator<<(ostream &os, const Vertex &v);
+	friend ostream& operator<<(ostream &os, const vector<Vertex *> v)
 };
 
 
@@ -88,7 +89,10 @@ public:
 	void deleteDirectedArc(int src, int dst);
 	void deleteUndirectedArc(int src, int dst);
 	void unSearchAll();
-	void depthFirstSearch(int src);
+
+	vector<Vertex*> depthFirstSearch(int src);
+	vector<Vertex*> depthFirstSearchRoute;
+
 	void findAllRoute(int src, int dst);
 	
 	friend ostream& operator<<(ostream &os, const Graph &g);
