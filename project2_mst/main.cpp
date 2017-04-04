@@ -16,12 +16,13 @@ int main()
 	directedGraph.addDirectedArc(4, 3);
 	directedGraph.addDirectedArc(4, 1);
 	directedGraph.addDirectedArc(1, 0);
-	directedGraph.addDirectedArc(1, 2);
-	directedGraph.addDirectedArc(2, 3);
+	//directedGraph.addDirectedArc(1, 2);
+	//directedGraph.addDirectedArc(2, 3);
 	cout << "有向图的邻接链表：\n" << directedGraph;
 	vector<Vertex*> depthFirstSearchRoute;
 	directedGraph.depthFirstSearch(0, depthFirstSearchRoute);
 	cout << "从A开始进行深度优先搜索的路径：\n" << depthFirstSearchRoute << endl;
+	cout << "是否为连通图？" << directedGraph.isConnectedDepthFirstSearch() << endl;
 	cout << "从A到D的所有路径：\n";
 	directedGraph.findAllRoute(0, 3);
 	cout << "从D到A的所有路径：\n";
@@ -43,6 +44,7 @@ int main()
 	cout << "\n\n无向图的邻接链表：\n" << undirectedGraph;
 	undirectedGraph.depthFirstSearch(0, depthFirstSearchRoute);
 	cout << "从A开始进行深度优先搜索的路径：\n" << depthFirstSearchRoute << endl;
+	cout << "是否为连通图？" << undirectedGraph.isConnectedDepthFirstSearch() << endl;
 	cout << "从A到D的所有路径：\n";
 	undirectedGraph.findAllRoute(0, 3);
 	cout << "从D到A的所有路径：\n";

@@ -91,6 +91,7 @@ public:
 	void unSearchAll();
 
 	void depthFirstSearch(int src, vector<Vertex*>& depthFirstSearchRoute);
+	bool isConnectedDepthFirstSearch();
 
 	void findAllRoute(int src, int dst);
 	

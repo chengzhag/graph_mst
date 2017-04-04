@@ -182,6 +182,13 @@ void Graph::depthFirstSearch(int src, vector<Vertex*>& depthFirstSearchRoute)
 }
 
 
+bool Graph::isConnectedDepthFirstSearch()
+{
+	vector<Vertex*> depthFirstSearchRoute;
+	depthFirstSearch(0, depthFirstSearchRoute);
+	return depthFirstSearchRoute.size() == vertexes.size();
+}
+
 void Graph::deleteDirectedArc(int src, int dst)
 {
 	vertexes[src].deleteAdj(vertexes[dst]);
