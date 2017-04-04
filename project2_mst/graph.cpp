@@ -5,7 +5,7 @@ ostream& operator<<(ostream &os, const Vertex &v) {
 	list<Arc>::const_iterator it;
 	for (it = v.outArcs.begin(); it != v.outArcs.end(); it++)
 	{
-		os << "(" << (*it).weight << ")" << (*it).dst->data << " , ";
+		os << "(" <<it->weight << ")" << it->dst->data << " , ";
 	}
 	return os;
 }
@@ -50,7 +50,7 @@ void Vertex::deleteAdj(Vertex &adj)
 
 	for (it = outArcs.begin(); it != outArcs.end();)
 	{
-		if ((*it).dst == &adj)
+		if (it->dst == &adj)
 		{
 			outArcs.erase(it);
 			break;
@@ -134,10 +134,10 @@ void Graph::findAllRoute(Vertex &src, Vertex &dst)
 	list<Arc>::iterator it;
 	for (it = src.outArcs.begin(); it != src.outArcs.end(); it++)
 	{
-		if (!(*it).dst->isSearched())
+		if (!it->dst->isSearched())
 		{
-			findAllRoute(*(*it).dst, dst);
-			(*it).dst->unSearched();
+			findAllRoute(*(it->dst), dst);
+			it->dst->unSearched();
 		}
 	}
 	searchRoute.pop_back();
@@ -168,9 +168,9 @@ void Graph::depthFirstSearch(Vertex &v, vector<Vertex*>& depthFirstSearchRoute)
 	list<Arc>::iterator it;
 	for (it = v.outArcs.begin(); it != v.outArcs.end(); it++)
 	{
-		if (!(*it).dst->isSearched())
+		if (!it->dst->isSearched())
 		{
-			depthFirstSearch(*(*it).dst, depthFirstSearchRoute);
+			depthFirstSearch(*(it->dst), depthFirstSearchRoute);
 		}
 	}
 }
