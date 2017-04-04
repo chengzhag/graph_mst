@@ -78,7 +78,7 @@ class Graph
 {
 	int numVertex;
 	vector<Vertex> vertexes;
-	void depthFirstSearch(Vertex &v);
+	void depthFirstSearch(Vertex &v, vector<Vertex*>& depthFirstSearchRoute);
 	void findAllRoute(Vertex &src, Vertex &dst);
 public:
 	Graph() :numVertex(0) {};
@@ -90,8 +90,7 @@ public:
 	void deleteUndirectedArc(int src, int dst);
 	void unSearchAll();
 
-	vector<Vertex*>& depthFirstSearch(int src);
-	vector<Vertex*> depthFirstSearchRoute;
+	void depthFirstSearch(int src, vector<Vertex*>& depthFirstSearchRoute);
 
 	void findAllRoute(int src, int dst);
 	

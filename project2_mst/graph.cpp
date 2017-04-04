@@ -158,7 +158,7 @@ void Graph::findAllRoute(int src, int dst)
 // Qualifier:
 // Parameter: Vertex & v
 //************************************
-void Graph::depthFirstSearch(Vertex &v)
+void Graph::depthFirstSearch(Vertex &v, vector<Vertex*>& depthFirstSearchRoute)
 {
 	v.searched();
 	depthFirstSearchRoute.push_back(&v);
@@ -168,18 +168,17 @@ void Graph::depthFirstSearch(Vertex &v)
 	{
 		if (!(*it).dst->isSearched())
 		{
-			depthFirstSearch(*(*it).dst);
+			depthFirstSearch(*(*it).dst, depthFirstSearchRoute);
 		}
 	}
 }
 
 
-vector<Vertex*>& Graph::depthFirstSearch(int src)
+void Graph::depthFirstSearch(int src, vector<Vertex*>& depthFirstSearchRoute)
 {
 	unSearchAll();
 	depthFirstSearchRoute.clear();
-	depthFirstSearch(vertexes[src]);
-	return depthFirstSearchRoute;
+	depthFirstSearch(vertexes[src], depthFirstSearchRoute);
 }
 
 
