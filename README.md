@@ -77,8 +77,8 @@ def Prim(G)
         # 更新minWeightArc邻接节点到树的距离,邻接节点当然不在树中
         # 虽然图是无向图，但是由邻接链表存储，outArc有指向性，指向dst
         for outArc in minWeightVertex.outArcs
-            if outArc.dst not in treeVertex \
-            and outArc.weight<outArcs.dst.minWeightArcToTree.weight
+            if outArc.dst not in treeVertex and \
+            outArc.weight<outArcs.dst.minWeightArcToTree.weight
                 outArc.dst.minWeightArcToTree=outArc.reverse()
         # 找到离树最近的节点，加入树
         minWeightArc=findMinWeightToTreeArc(G.vertex-treeVertex)
@@ -89,7 +89,7 @@ def Prim(G)
 
 #### Prim实现4
 
-> - 与实现#3类似，只是用堆来维护```(G.vertex-treeVertex).minWeight```集合
+> - 与实现#3类似，只是用堆```heapArcToTree```来维护```(G.vertex-treeVertex).minWeight```集合
 > - ```findMinWeightToTreeArc()```用最小堆实现
 > - ```minWeightArc```添加到```treeArc```、```minWeightVertex```添加到```treeVertex```后，需要在heap中先删除```minWeightArc```，后插入可能因minWeightVertex增加的arc
 
@@ -123,7 +123,16 @@ for (int i = 0; i < 10; i++)
 - 更方便地可以将邻接链表中某条有向边的指针存到最小堆中
 - 两种都不是基本类型，需要自行构造比较规则
 
-**构建比较规则**的方法有以下几种
+#### 构建比较规则的方法
+
 - 重载```operator<```、```operator>```操作符
 - 自定义一个比较类，继承自```functional```的```less```或```greater```
+
+(```priority_queue```的详细使用方法可以参考[c++中STL之heap,priority_queue使用](http://blog.csdn.net/longhopefor/article/details/38303545)和[STL之priority_queue_李大宝_新浪博客](http://blog.sina.com.cn/s/blog_959bf1d3010191h1.html))
+
+### 实现
+
+- 利用dfs或bfs对图进行遍历，判断图的连通性
+
+
 

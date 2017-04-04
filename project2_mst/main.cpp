@@ -7,6 +7,7 @@
 
 int main()
 {
+	//测试有向图
 	Graph directedGraph;
 	for (int i = 0; i < 5; i++)
 	{
@@ -18,18 +19,22 @@ int main()
 	directedGraph.addDirectedArc(1, 0);
 	//directedGraph.addDirectedArc(1, 2);
 	//directedGraph.addDirectedArc(2, 3);
+
 	cout << "有向图的邻接链表：\n" << directedGraph;
 	vector<Vertex*> depthFirstSearchRoute;
 	directedGraph.depthFirstSearch(0, depthFirstSearchRoute);
 	cout << "从A开始进行深度优先搜索的路径：\n" << depthFirstSearchRoute << endl;
 	cout << "是否为连通图？" << directedGraph.isConnectedDepthFirstSearch() << endl;
-	cout << "从A到D的所有路径：\n";
-	directedGraph.findAllRoute(0, 3);
-	cout << "从D到A的所有路径：\n";
-	directedGraph.findAllRoute(3, 0);
-	cout << "从E到D的所有路径：\n";
-	directedGraph.findAllRoute(4, 0);
 
+	//cout << "从A到D的所有路径：\n";
+	//directedGraph.findAllRoute(0, 3);
+	//cout << "从D到A的所有路径：\n";
+	//directedGraph.findAllRoute(3, 0);
+	//cout << "从E到D的所有路径：\n";
+	//directedGraph.findAllRoute(4, 0);
+
+
+	//测试无向图
 	Graph undirectedGraph;
 	for (int i = 0; i < 5; i++)
 	{
@@ -41,28 +46,24 @@ int main()
 	undirectedGraph.addUndirectedArc(1, 0);
 	undirectedGraph.addUndirectedArc(1, 2);
 	undirectedGraph.addUndirectedArc(2, 3);
+
 	cout << "\n\n无向图的邻接链表：\n" << undirectedGraph;
 	undirectedGraph.depthFirstSearch(0, depthFirstSearchRoute);
 	cout << "从A开始进行深度优先搜索的路径：\n" << depthFirstSearchRoute << endl;
 	cout << "是否为连通图？" << undirectedGraph.isConnectedDepthFirstSearch() << endl;
-	cout << "从A到D的所有路径：\n";
-	undirectedGraph.findAllRoute(0, 3);
-	cout << "从D到A的所有路径：\n";
-	undirectedGraph.findAllRoute(3, 0);
-	cout << "从E到D的所有路径：\n";
-	undirectedGraph.findAllRoute(4, 0);
 
-	//priority_queue<double, vector<double>, greater<double>> heap;
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	heap.push(i);
-	//}
-	//cout << endl;
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	cout << heap.top()<<" ";
-	//	heap.pop();
-	//}
+	Graph mst;
+	cout << "能否找到最小生成树？" << undirectedGraph.primMST(mst) << endl;
+
+	
+
+	//cout << "从A到D的所有路径：\n";
+	//undirectedGraph.findAllRoute(0, 3);
+	//cout << "从D到A的所有路径：\n";
+	//undirectedGraph.findAllRoute(3, 0);
+	//cout << "从E到D的所有路径：\n";
+	//undirectedGraph.findAllRoute(4, 0);
+
 
 	return 0;
 }

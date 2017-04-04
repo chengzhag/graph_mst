@@ -6,6 +6,8 @@
 #include <list>
 #include <vector>
 #include <stack>
+#include <functional>
+#include <queue>
 
 using namespace std;
 
@@ -94,6 +96,15 @@ public:
 	bool isConnectedDepthFirstSearch();
 
 	void findAllRoute(int src, int dst);
+
+	bool primMST(Graph& mst);
+	struct GreaterArcPoint :greater<Arc*>
+	{
+		constexpr bool operator()(const Arc* _Left, const Arc* _Right) const
+		{
+			return (_Left->weight > _Right->weight);
+		}
+	};
 	
 	friend ostream& operator<<(ostream &os, const Graph &g);
 };

@@ -30,6 +30,8 @@ ostream& operator<<(ostream &os, const Graph &g) {
 }
 
 
+
+
 void Vertex::unSearched()
 {
 	flagSearched = false;
@@ -187,6 +189,46 @@ bool Graph::isConnectedDepthFirstSearch()
 	vector<Vertex*> depthFirstSearchRoute;
 	depthFirstSearch(0, depthFirstSearchRoute);
 	return depthFirstSearchRoute.size() == vertexes.size();
+}
+
+//************************************
+// Method:    primMST
+// FullName:  Graph::primMST
+// Description: 基于Prim算法的MST函数
+// Access:    public 
+// Returns:   void
+// Qualifier:
+// Parameter: Graph & mst
+//************************************
+
+//priority_queue<double, vector<Arc*>, Graph::GreaterArcPoint> heapArcToTree;
+//Arc a(Vertex(), Vertex(), 4);
+//Arc b(Vertex(), Vertex(), 3);
+//Arc c(Vertex(), Vertex(), 6);
+//Arc d(Vertex(), Vertex(), 5);
+//heapArcToTree.push(&a);
+//cout << heapArcToTree.top()->weight << endl;
+//heapArcToTree.push(&b);
+//cout << heapArcToTree.top()->weight << endl;
+//heapArcToTree.push(&c);
+//cout << heapArcToTree.top()->weight << endl;
+//heapArcToTree.push(&d);
+//cout << heapArcToTree.top()->weight << endl;
+//heapArcToTree.pop();
+//cout << heapArcToTree.top()->weight << endl;
+
+bool Graph::primMST(Graph& mst)
+{
+	priority_queue<Arc*, vector<Arc*>, GreaterArcPoint> heapArcToTree;
+
+	if (isConnectedDepthFirstSearch())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void Graph::deleteDirectedArc(int src, int dst)
