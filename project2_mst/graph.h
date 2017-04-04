@@ -12,7 +12,8 @@
 using namespace std;
 
 typedef char DataType;	//节点储存的数据类型
-typedef double weightType;	//边权重的数据类型
+typedef double WeightType;	//边权重的数据类型
+#define WEIGHT_INF 1.0/0.0
 
 class Arc;
 class Vertex;
@@ -39,7 +40,7 @@ public:
 	bool isSearched();
 	void searched();
 	void unSearched();
-	void addAdj(Vertex& adj, weightType w);
+	void addAdj(Vertex& adj, WeightType w);
 	void deleteAdj(Vertex& adj);
 	bool operator==(Vertex const & v);
 	
@@ -62,7 +63,7 @@ class Arc
 public:
 	double weight;
 	Vertex *src, *dst;
-	Arc(Vertex &s, Vertex &d, weightType w) :
+	Arc(Vertex &s, Vertex &d, WeightType w) :
 		weight(w), src(&s), dst(&d) {};
 };
 
@@ -86,8 +87,8 @@ public:
 	Graph() :numVertex(0) {};
 	void addVertex();
 	void addVertex(DataType dataInit);
-	void addDirectedArc(int src, int dst, weightType w = 0);
-	void addUndirectedArc(int src, int dst, weightType w = 0);
+	void addDirectedArc(int src, int dst, WeightType w = 0);
+	void addUndirectedArc(int src, int dst, WeightType w = 0);
 	void deleteDirectedArc(int src, int dst);
 	void deleteUndirectedArc(int src, int dst);
 	void unSearchAll();

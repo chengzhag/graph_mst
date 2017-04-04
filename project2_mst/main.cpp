@@ -53,7 +53,7 @@ int main()
 	cout << "是否为连通图？" << undirectedGraph.isConnectedDepthFirstSearch() << endl;
 
 	Graph mst;
-	cout << "能否找到最小生成树？" << undirectedGraph.primMST(mst) << endl;
+	//cout << "能否找到最小生成树？" << undirectedGraph.primMST(mst) << endl;
 
 	
 

@@ -59,7 +59,7 @@ void Vertex::deleteAdj(Vertex &adj)
 }
 
 
-void Vertex::addAdj(Vertex &adj,weightType w)
+void Vertex::addAdj(Vertex &adj,WeightType w)
 {
 	outArcs.push_back(Arc(*this, adj, w));
 }
@@ -91,7 +91,7 @@ void Graph::deleteUndirectedArc(int src, int dst)
 }
 
 
-void Graph::addUndirectedArc(int src, int dst, weightType w)
+void Graph::addUndirectedArc(int src, int dst, WeightType w)
 {
 	addDirectedArc(src, dst, w);
 	addDirectedArc(dst, src, w);
@@ -219,16 +219,36 @@ bool Graph::isConnectedDepthFirstSearch()
 
 bool Graph::primMST(Graph& mst)
 {
-	priority_queue<Arc*, vector<Arc*>, GreaterArcPoint> heapArcToTree;
-
-	if (isConnectedDepthFirstSearch())
-	{
-		return true;
-	}
-	else
+	//以priority_queue储存到树的最小权重边
+	if (!isConnectedDepthFirstSearch())
 	{
 		return false;
 	}
+	priority_queue<Arc*, vector<Arc*>, GreaterArcPoint> heapArcToTree;
+
+	//初始化mst
+	mst.vertexes.reserve(vertexes.size());
+	//将图的第一个节点加入mst
+	mst.addVertex(vertexes[0].data);
+	Vertex* newAddedVertex = &(mst.vertexes[0]);
+
+	while (mst.vertexes.size() != vertexes.size())
+	{
+		//更新因newAddedVertex带来的heapArcToTree的改变
+		list<Arc>::iterator it = newAddedVertex->outArcs.begin();
+		for (; it != newAddedVertex->outArcs.end(); it++)
+		{
+			////排除指向mst的边
+			//if (it->)
+			//{
+			//}
+			//heapArcToTree.push(&)
+		}
+	}
+
+
+
+	return true;
 }
 
 void Graph::deleteDirectedArc(int src, int dst)
@@ -247,7 +267,7 @@ void Graph::addVertex(DataType dataInit)
 }
 
 
-void Graph::addDirectedArc(int src, int dst,weightType w)
+void Graph::addDirectedArc(int src, int dst,WeightType w)
 {
 	vertexes[src].addAdj(vertexes[dst], w);
 }
