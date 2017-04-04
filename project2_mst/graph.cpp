@@ -161,7 +161,8 @@ void Graph::findAllRoute(int src, int dst)
 void Graph::depthFirstSearch(Vertex &v)
 {
 	v.searched();
-	cout << v.data;
+	depthFirstSearchRoute.push_back(&v);
+	//cout << v.data;
 	list<Arc>::iterator it;
 	for (it = v.outArcs.begin(); it != v.outArcs.end(); it++)
 	{
@@ -173,11 +174,12 @@ void Graph::depthFirstSearch(Vertex &v)
 }
 
 
-vector<Vertex*> Graph::depthFirstSearch(int src)
+vector<Vertex*>& Graph::depthFirstSearch(int src)
 {
 	unSearchAll();
-
+	depthFirstSearchRoute.clear();
 	depthFirstSearch(vertexes[src]);
+	return depthFirstSearchRoute;
 }
 
 
