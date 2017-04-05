@@ -4,6 +4,13 @@
 #include <queue>
 #include <functional>
 
+struct GreaterDoublePoint :greater<double*>
+{
+	constexpr bool operator()(const double* _Left, const double* _Right) const
+	{
+		return (*_Left > *_Right);
+	}
+};
 
 int main()
 {
@@ -63,6 +70,19 @@ int main()
 	//undirectedGraph.findAllRoute(3, 0);
 	//cout << "从E到D的所有路径：\n";
 	//undirectedGraph.findAllRoute(4, 0);
+
+	priority_queue<double*, vector<double*>, GreaterDoublePoint> heapDoublePoint;
+	double test[5] = {15, 5 , 6, 8, 10};
+	for (int i = 0; i < 5; i++)
+	{
+		heapDoublePoint.push(test + i);
+	}
+	cout << *heapDoublePoint.top() << endl;
+	test[0] = 3;
+	cout << *heapDoublePoint.top() << endl;
+	//heapDoublePoint.pop();//报错，最小堆的维护失败，不能直接更改节点指向的权重
+	//cout << *heapDoublePoint.top() << endl;
+
 
 
 
