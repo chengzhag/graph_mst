@@ -229,7 +229,7 @@ bool Graph::primMST(Graph& mst)
 	//初始化mst
 	mst.vertexes.reserve(vertexes.size());
 	//将图的第一个节点加入mst
-	mst.addVertex(vertexes[0].data);
+	mst.addVertex(vertexes.front().data);
 	Vertex* newAddedVertex = &(mst.vertexes[0]);
 
 	while (mst.vertexes.size() != vertexes.size())
@@ -238,10 +238,15 @@ bool Graph::primMST(Graph& mst)
 		list<Arc>::iterator it = newAddedVertex->outArcs.begin();
 		for (; it != newAddedVertex->outArcs.end(); it++)
 		{
-			////排除指向mst的边
-			//if (it->)
-			//{
-			//}
+			//排除指向mst的边,遍历mst的节点比对是否与*it (outArc)重合
+			for (int i = 0; i < mst.vertexes.size(); i++)
+			{
+				if (it->dst == &(mst.vertexes[i]))
+				{
+					
+				}
+			}
+
 			//heapArcToTree.push(&)
 		}
 	}
