@@ -45,8 +45,8 @@ template<class _Ty,
 	void Heap<_Ty, _Container, _Pr>::BubbleUpByIndex(int index)
 {
 	_Iter_diff_t<_Container::iterator> _Bottom = c.end() - c.begin();
-	_Iter_diff_t<_Container::iterator> _Hole = _Bottom;
-	_Iter_value_t<_Container::iterator> _Val = _STD move(*(c.end() + index));
+	_Iter_diff_t<_Container::iterator> _Hole = index;
+	_Iter_value_t<_Container::iterator> _Val = _STD move(*(c.begin() + index));
 	_Pop_heap_hole_by_index(c.begin(), _Hole, _Bottom, _STD move(_Val), comp);
 }
 

@@ -80,13 +80,17 @@ int main()
 		heapDoublePoint.push(test + i);
 	}
 	cout << *heapDoublePoint.top() << endl;
-	//test[0] = 3;
+	test[0] = 3;
 	//对更改的节点向上冒泡
-	heapDoublePoint.BubbleUpByIndex(4);
+	for (int i = 0; i < 5; i++)
+	{
+		heapDoublePoint.BubbleUpByIndex(i);
+	}
+	
 
-	//cout << *heapDoublePoint.top() << endl;
-	//heapDoublePoint.pop();//报错，最小堆的维护失败，不能直接更改节点指向的权重
-	//cout << *heapDoublePoint.top() << endl;
+	cout << *heapDoublePoint.top() << endl;
+	heapDoublePoint.pop();//报错，最小堆的维护失败，不能直接更改节点指向的权重
+	cout << *heapDoublePoint.top() << endl;
 
 
 
