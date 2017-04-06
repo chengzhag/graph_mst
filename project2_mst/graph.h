@@ -22,35 +22,6 @@ class Graph;
 
 
 /*!
- * \class classname
- *
- * \brief 
- *
- * \author Sky
- * \date 四月 2017
- */
-
-template<class _Ty,
-	class _Container = vector<_Ty>,
-	class _Pr = less<typename _Container::value_type> >
-	class Heap :public priority_queue<_Ty, _Container, _Pr>
-{
-public:
-	void BubbleUpByIndex(int index);
-};
-
-template<class _Ty,
-	class _Container,
-	class _Pr>
-	void Heap<_Ty, _Container, _Pr>::BubbleUpByIndex(int index)
-{
-	_Iter_diff_t<_Container::iterator> _Bottom = c.end() - c.begin();
-	_Iter_diff_t<_Container::iterator> _Hole = index;
-	_Iter_value_t<_Container::iterator> _Val = _STD move(*(c.begin() + index));
-	_Pop_heap_hole_by_index(c.begin(), _Hole, _Bottom, _STD move(_Val), comp);
-}
-
-/*!
  * \class Vertex
  *
  * \brief 图的节点
@@ -128,13 +99,6 @@ public:
 	void findAllRoute(int src, int dst);
 
 	bool primMST(Graph& mst);
-	struct GreaterArcPoint :greater<Arc*>
-	{
-		constexpr bool operator()(const Arc* _Left, const Arc* _Right) const
-		{
-			return (_Left->weight > _Right->weight);
-		}
-	};
 	
 	friend ostream& operator<<(ostream &os, const Graph &g);
 };
