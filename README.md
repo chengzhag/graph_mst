@@ -31,7 +31,7 @@
 - 设计实验，针对多组相同实例，比较真实运行时间
 - 提交实验报告。
 
-## 思路
+## 伪码
 
 ### Prim伪码
 
@@ -93,9 +93,9 @@ def Prim(G)
 > - ```findMinWeightToTreeArc()```用最小堆实现
 > - ```minWeightArc```更新后，需要在heap中先删除，后插入
 
-### 分析
+## 分析
 
-#### 最小堆实现
+### 最小堆实现
 
 利用c++stl库中```queue```的```priority_queue```类，使用方法：
 
@@ -121,14 +121,14 @@ for (int i = 0; i < 10; i++)
 - ```priority_queue```类可以自定义容器、容器所装的数据类型、比较规则
 
 
-#### 构建比较规则的方法
+### 构建比较规则的方法
 
 - 重载```operator<```、```operator>```操作符
 - 自定义一个比较类，继承自```functional```的```less```或```greater```
 
 (```priority_queue```的详细使用方法可以参考[c++中STL之heap,priority_queue使用](http://blog.csdn.net/longhopefor/article/details/38303545)和[STL之priority_queue_李大宝_新浪博客](http://blog.sina.com.cn/s/blog_959bf1d3010191h1.html))
 
-#### 堆```heapArcToTree```所容纳的数据类型
+### 堆```heapArcToTree```所容纳的数据类型
 
 数据类型要求：
 1. 保存非tree节点的唯一到mst权重最小的边，每个非tree节点有唯一对应边
@@ -147,7 +147,7 @@ for (int i = 0; i < 10; i++)
     - 此时```heapArcToTree```的比较类就应该构造两个节点的比较方法，比较的是它们最小权重边的权重大小
     - 比较方法中认为空指针权重为无穷大
 
-#### 最小堆```heapArcToTree```的更新
+### 最小堆```heapArcToTree```的更新
 
 - 初始```heapArcToTree```包含了除tree中唯一节点外的所有非tree节点
 - 每个循环```newAddedVertex```加入tree，都可能导致```heapArcToTree```的更新
@@ -158,15 +158,20 @@ for (int i = 0; i < 10; i++)
     1. 但是想到，更新权重都是往小的方向更新，只要每次更新都对其进行一次向上冒泡操作即可，复杂度为O(log(n))
     1. 由此不能用```heapArcToTree```，因为它没有实现权值更新的冒泡排序方法
     1. 自己实现一个最小堆，要求可以通过树节点找到堆的节点，用于对更新权值后的堆节点进行冒泡排序，总复杂度为mO(log(n))（p369)。或更新所有```newAddedVertex```邻接节点权值后进行一次建堆操作，总复杂度O(n^2logn)（显然不行）
-    1. 考虑堆节点数据类型为树节点的指针，树节点维护一个最小权重边的指针，指针为NULL时表示与tree无连接，同时维护一个堆节点的指针，指针为NULL时表示节点在tree中
-    1. 自己实现的最小堆要实现pop()方法，和对某个堆节点进行冒泡排序的方法，更进一步实现对树节点的最小权重边进行更改的方法。初步考虑参考algorithm中heap的实现方法，或直接借用其函数
+    1. 考虑堆节点数据类型为树节点的指针，树节点维护一个最小权重边的指针，指针为NULL时表示与tree无连接，同时维护一个堆节点的指针（或序号，那么），指针为NULL时表示节点在tree中（序号不存在表示在tree中）
+    1. 自己实现的最小堆要实现pop()方法，和对某个堆节点进行向上冒泡排序的方法（考虑使用_Pop_heap_hole_unchecked、_Pop_heap_hole_by_index），更进一步实现对树节点的最小权重边进行更改的方法。初步考虑参考algorithm中heap的实现方法，或直接借用其函数
 - 每个循环```newAddedVertex```加入tree，对```newAddedVertex```邻边进行遍历时要判断邻接节点是否属于非tree（堆）
     1. 对每个节点维护一个标志位来指明节点是否属于非tree
     1. 在节点加入tree时更新标志位
 
-### 实现
+## 实现
 
-1. 利用dfs或bfs对图进行遍历，判断图的连通性
-2. 构建自己的最小堆，
+### 判断连通性
+
+利用dfs或bfs对图进行遍历，判断图的连通性
+
+### 最小堆
+
+要求有pop()、
 
 

@@ -59,7 +59,7 @@ int main()
 	cout << "从A开始进行深度优先搜索的路径：\n" << depthFirstSearchRoute << endl;
 	cout << "是否为连通图？" << undirectedGraph.isConnectedDepthFirstSearch() << endl;
 
-	Graph mst;
+	//Graph mst;
 	//cout << "能否找到最小生成树？" << undirectedGraph.primMST(mst) << endl;
 
 	
@@ -71,15 +71,20 @@ int main()
 	//cout << "从E到D的所有路径：\n";
 	//undirectedGraph.findAllRoute(4, 0);
 
-	priority_queue<double*, vector<double*>, GreaterDoublePoint> heapDoublePoint;
+
+	cout << endl << "最小树测试：" << endl;
+	Heap<double*, vector<double*>, GreaterDoublePoint> heapDoublePoint;
 	double test[5] = {15, 5 , 6, 8, 10};
 	for (int i = 0; i < 5; i++)
 	{
 		heapDoublePoint.push(test + i);
 	}
 	cout << *heapDoublePoint.top() << endl;
-	test[0] = 3;
-	cout << *heapDoublePoint.top() << endl;
+	//test[0] = 3;
+	//对更改的节点向上冒泡
+	heapDoublePoint.BubbleUpByIndex(4);
+
+	//cout << *heapDoublePoint.top() << endl;
 	//heapDoublePoint.pop();//报错，最小堆的维护失败，不能直接更改节点指向的权重
 	//cout << *heapDoublePoint.top() << endl;
 

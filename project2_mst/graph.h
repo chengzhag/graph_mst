@@ -6,6 +6,7 @@
 #include <list>
 #include <vector>
 #include <stack>
+
 #include <functional>
 #include <queue>
 
@@ -20,6 +21,34 @@ class Vertex;
 class Graph;
 
 
+/*!
+ * \class classname
+ *
+ * \brief 
+ *
+ * \author Sky
+ * \date ËÄÔÂ 2017
+ */
+
+template<class _Ty,
+	class _Container = vector<_Ty>,
+	class _Pr = less<typename _Container::value_type> >
+	class Heap :public priority_queue<_Ty, _Container, _Pr>
+{
+public:
+	void BubbleUpByIndex(int index);
+};
+
+template<class _Ty,
+	class _Container,
+	class _Pr>
+	void Heap<_Ty, _Container, _Pr>::BubbleUpByIndex(int index)
+{
+	_Iter_diff_t<_Container::iterator> _Bottom = c.end() - c.begin();
+	_Iter_diff_t<_Container::iterator> _Hole = _Bottom;
+	_Iter_value_t<_Container::iterator> _Val = _STD move(*(c.end() + index));
+	_Pop_heap_hole_by_index(c.begin(), _Hole, _Bottom, _STD move(_Val), comp);
+}
 
 /*!
  * \class Vertex
