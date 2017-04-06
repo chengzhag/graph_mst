@@ -84,7 +84,7 @@ class Graph
 	void depthFirstSearch(Vertex &v, vector<Vertex*>& depthFirstSearchRoute);
 	void findAllRoute(Vertex &src, Vertex &dst);
 public:
-	Graph() :numVertex(0) {};
+	Graph() :numVertex(0), minWeightArcToTree(NULL){};
 	void addVertex();
 	void addVertex(DataType dataInit);
 	void addDirectedArc(int src, int dst, WeightType w = 0);
@@ -98,6 +98,8 @@ public:
 
 	void findAllRoute(int src, int dst);
 
+	Arc* minWeightArcToTree;
+	int heapNodeIndex;
 	bool primMST(Graph& mst);
 	
 	friend ostream& operator<<(ostream &os, const Graph &g);
