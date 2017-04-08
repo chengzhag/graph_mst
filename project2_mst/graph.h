@@ -135,5 +135,6 @@ public:
 	void downBuble(int index);
 	void makeHeap();
 	void pop();
+	void decreaseWeight(int index,WeightType w);
 };
 

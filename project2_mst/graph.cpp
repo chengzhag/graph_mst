@@ -270,15 +270,7 @@ int MinHeap::right(int index)
 
 bool MinHeap::greater(HeapNodeType a, HeapNodeType b)
 {
-	//if (a->minWeightArcToTree==NULL)
-	//{
-	//	return true;
-	//}
-	//else if (b->minWeightArcToTree != NULL)
-	//{
-	//	return a->minWeightArcToTree->weight > b->minWeightArcToTree->weight;
-	//}
-	return true;
+	return a->minWeightArcToTree.weight>b->minWeightArcToTree.weight;
 }
 
 int MinHeap::size()
@@ -298,25 +290,56 @@ HeapNodeType MinHeap::top()
 
 void MinHeap::upBubble(int index)
 {
-
+	int i = index;
+	while (i > 1 && container[parent(i)] > container[i])
+	{
+		swap(container[i], container[parent(i)]);
+		i = parent(i);
+	}
+	
 }
 
 void MinHeap::downBuble(int index)
 {
 	int l = left(index);
 	int r = right(index);
-	if (l < size() && greater(container[l], container[r]))
+	int min;
+	if (l < size() && greater(container[index], container[l]))
 	{
-
+		min = l;
+	}
+	if (r < size() && greater(container[min], container[r]))
+	{
+		min = r;
+	}
+	if (min != index)
+	{
+		swap(container[min], container[index]);
+		downBuble(min);
 	}
 }
 
 void MinHeap::makeHeap()
 {
-
+	int length = size() / 2 - 1;
+	for (int i = length; i >= 0; i--)
+	{
+		downBuble(i);
+	}
 }
 
 void MinHeap::pop()
 {
+	container[0] = container[size() - 1];
+	container.pop_back();
+	downBuble(0);
+}
 
+void MinHeap::decreaseWeight(int index, WeightType w)
+{
+	if (w < container[index]->minWeightArcToTree.weight)
+	{
+		container[index]->minWeightArcToTree.weight = w;
+		upBubble(index);
+	}
 }
