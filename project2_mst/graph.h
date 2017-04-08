@@ -17,7 +17,7 @@ class Vertex;
 class Graph;
 class MinHeap;
 
-typedef Vertex* HeapNodeType;
+typedef int HeapNodeType;
 typedef char DataType;	//节点储存的数据类型
 typedef double WeightType;	//边权重的数据类型
 
@@ -65,6 +65,7 @@ public:
 	bool operator==(Vertex const & v);
 
 	Arc minWeightArcToTree;
+	void setMinWeightArcToTree(Vertex *src, Vertex *dst, WeightType w = 0);
 	int heapNodeIndex;
 	
 	friend ostream& operator<<(ostream &os, const Vertex &v);
@@ -106,6 +107,8 @@ public:
 	bool primMST(Graph& mst);
 	
 	friend ostream& operator<<(ostream &os, const Graph &g);
+	friend class MinHeap;
+	friend ostream& operator<<(ostream &os, MinHeap &g);
 };
 
 
@@ -121,23 +124,19 @@ public:
 class MinHeap
 {
 	vector<HeapNodeType> container;
+	Graph* g;
 	int parent(int index);
 	int left(int index);
 	int right(int index);
-	bool greater(HeapNodeType a, HeapNodeType b);
+	bool greater(int a, int b);
+	void initContainer();
+	void initHeapNodeIndex();
 public:
-	MinHeap(vector<HeapNodeType>& data) :
-		container(data) {
-		for (int i = 0; i < size(); i++)
-		{
-			container[i]->heapNodeIndex = i;
-		}
-		makeHeap();
-	};
+	MinHeap(Graph &gInit);
 	int size();
 	int height();
 	bool empty();
-	HeapNodeType top();
+	Vertex& top();
 	void upBubble(int index);
 	void downBuble(int index);
 	void makeHeap();

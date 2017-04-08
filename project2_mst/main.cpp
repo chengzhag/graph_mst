@@ -72,16 +72,29 @@ int main()
 	//undirectedGraph.findAllRoute(4, 0);
 
 	//测试最小树
+	double weight[] = { 16,4,10,14,7,9,3,2,8,1 };
 	Graph undirectedGraph;
 	for (int i = 0; i < 10; i++)
 	{
 		undirectedGraph.addVertex('A' + i);
-		//undirectedGraph.
+		undirectedGraph.setMinWeightArcToTree(i, 0, weight[i]);
 	}
+	cout << "测试minHeap" << endl;
+	MinHeap heap(undirectedGraph);
+	cout << endl << heap;
+	heap.decreaseWeight(3, 0.5);
+	cout << endl << heap;
+	cout << heap.empty() << endl;
+	cout << heap.height() << endl;
+	cout << heap.top().minWeightArcToTree.weight << endl;
+	heap.pop();
+	cout << endl << heap;
+	cout << heap.top().minWeightArcToTree.weight << endl;
+	heap.
 
 
-	cout << "\n\n无向图的邻接链表：\n" << undirectedGraph;
-	cout << "是否为连通图？" << undirectedGraph.isConnectedDepthFirstSearch() << endl;
+	//cout << "\n\n无向图的邻接链表：\n" << undirectedGraph;
+	//cout << "是否为连通图？" << undirectedGraph.isConnectedDepthFirstSearch() << endl;
 
 
 

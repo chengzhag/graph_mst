@@ -43,6 +43,13 @@ bool Vertex::operator==(Vertex const &v)
 	return this == &v;
 }
 
+void Vertex::setMinWeightArcToTree(Vertex *src, Vertex *dst, WeightType w)
+{
+	minWeightArcToTree.src = src;
+	minWeightArcToTree.dst = dst;
+	minWeightArcToTree.weight = w;
+}
+
 
 void Vertex::deleteAdj(Vertex &adj)
 {
@@ -146,9 +153,7 @@ void Graph::findAllRoute(int src, int dst)
 
 void Graph::setMinWeightArcToTree(int src, int dst, WeightType w)
 {
-	vertexes[src].minWeightArcToTree.src = &(vertexes[src]);
-	vertexes[src].minWeightArcToTree.dst = &(vertexes[dst]);
-	vertexes[src].minWeightArcToTree.weight = w;
+	vertexes[src].setMinWeightArcToTree(&(vertexes[src]), &(vertexes[dst]), w);
 }
 
 //************************************
@@ -267,7 +272,7 @@ int MinHeap::parent(int index)
 
 int MinHeap::left(int index)
 {
-	return index * 2+1;
+	return index * 2 + 1;
 }
 
 int MinHeap::right(int index)
@@ -275,9 +280,34 @@ int MinHeap::right(int index)
 	return index * 2 + 2;
 }
 
-bool MinHeap::greater(HeapNodeType a, HeapNodeType b)
+bool MinHeap::greater(int a, int b)
 {
-	return a->minWeightArcToTree.weight>b->minWeightArcToTree.weight;
+	return g->vertexes[container[a]].minWeightArcToTree.weight > g->vertexes[container[b]].minWeightArcToTree.weight;
+}
+
+void MinHeap::initContainer()
+{
+	container.reserve(g->vertexes.size());
+	for (int i = 0; i < g->vertexes.size(); i++)
+	{
+		container.push_back(i);
+	}
+}
+
+void MinHeap::initHeapNodeIndex()
+{
+	for (int i = 0; i < size(); i++)
+	{
+		g->vertexes[container[i]].heapNodeIndex = i;
+	}
+}
+
+MinHeap::MinHeap(Graph &gInit)
+{
+	g = &gInit;
+	initContainer();
+	initHeapNodeIndex();
+	makeHeap();
 }
 
 int MinHeap::size()
@@ -287,7 +317,7 @@ int MinHeap::size()
 
 int MinHeap::height()
 {
-	return log10(size()+1)/log10(2);
+	return log10(size())/log10(2)+1;
 }
 
 bool MinHeap::empty()
@@ -295,17 +325,17 @@ bool MinHeap::empty()
 	return container.empty();
 }
 
-HeapNodeType MinHeap::top()
+Vertex& MinHeap::top()
 {
-	return container.front();
+	return g->vertexes[container.front()];
 }
 
 void MinHeap::upBubble(int index)
 {
 	int i = index;
-	while (i > 1 && container[parent(i)] > container[i])
+	while (i >= 1 && greater(parent(i), i))
 	{
-		swap(container[i]->heapNodeIndex, container[parent(i)]->heapNodeIndex);
+		swap(g->vertexes[container[i]].heapNodeIndex, g->vertexes[container[parent(i)]].heapNodeIndex);
 		swap(container[i], container[parent(i)]);
 		i = parent(i);
 	}
@@ -316,18 +346,18 @@ void MinHeap::downBuble(int index)
 {
 	int l = left(index);
 	int r = right(index);
-	int min;
-	if (l < size() && greater(container[index], container[l]))
+	int min = index;
+	if (l < size() && greater(index, l))
 	{
 		min = l;
 	}
-	if (r < size() && greater(container[min], container[r]))
+	if (r < size() && greater(min, r))
 	{
 		min = r;
 	}
 	if (min != index)
 	{
-		swap(container[min]->heapNodeIndex, container[index]->heapNodeIndex);
+		swap(g->vertexes[container[min]].heapNodeIndex, g->vertexes[container[index]].heapNodeIndex);
 		swap(container[min], container[index]);
 		downBuble(min);
 	}
@@ -351,23 +381,24 @@ void MinHeap::pop()
 
 void MinHeap::decreaseWeight(int index, WeightType w)
 {
-	if (w < container[index]->minWeightArcToTree.weight)
+	if (w < g->vertexes[container[index]].minWeightArcToTree.weight)
 	{
-		container[index]->minWeightArcToTree.weight = w;
+		g->vertexes[container[index]].minWeightArcToTree.weight = w;
 		upBubble(index);
 	}
 }
 
-ostream& operator<<(ostream &os, MinHeap &g) {
+ostream& operator<<(ostream &os, MinHeap &heap) {
 	int i = 0;
-	for (int h = 0; h < g.height(); h++)
+	for (int h = 0; h < heap.height(); h++)
 	{
 		for (int j = 0; j < pow(2, h); j++)
 		{
-			cout << g.container[i]->minWeightArcToTree.weight << \
-				" (" << g.container[i]->minWeightArcToTree.weight << ") " << \
-				" ";
+			cout << heap.g->vertexes[heap.container[i]].minWeightArcToTree.weight << \
+				" (" << heap.container[i] << ") " << \
+				"\t";
 			i++;
+			if (i >= heap.size())break;
 		}
 		cout << endl;
 	}

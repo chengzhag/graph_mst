@@ -174,7 +174,7 @@ for (int i = 0; i < 10; i++)
 
 > 由于stl提供的```priority_queue```没有单独的向上冒泡方法，或更新权值的方法，而且stl也没有提供对堆节点进行冒泡操作的单独函数，所以决定自己实现一个堆类MinHeap。要求有pop()、top()、makeHeap()、构造函数、向上冒泡函数upBubble(index)（用于push和减小权值）、向下冒泡函数downBubble(index)（用于pop，用末尾节点替换头结点时）、size()、empty()，且堆操作时还要对树节点中的“在堆中的位置”标签进行维护。
 
-由于要对节点指向的数据类型中index成员进行维护，不得不放弃复用性：容器使用```vector```，堆节点数据类型为树节点的指针```Vertex*```，每个树节点Vertex包含一个成员变量```minWeightArcToTree```（指向到tree权重最小的边，NULL表示无此边。或者直接实例化一个边对象），和一个```heapNodeIndex```(对应堆中的节点位置，```heapArcToTree.size()```表示不在堆中)。
+由于要对节点指向的数据类型中index成员进行维护，不得不放弃复用性：容器使用```vector```，堆节点数据类型为树节点的序数```int```，每个树节点Vertex包含一个成员变量```minWeightArcToTree```（指向到tree权重最小的边，NULL表示无此边。或者直接实例化一个边对象），和一个```heapNodeIndex```(对应堆中的节点位置，```heapArcToTree.size()```表示不在堆中)。
 
 这样图节点类和最小堆之间的耦合度相对较高，不容易调试，可以先实现基本的最小堆功能，再实现对```heapNodeIndex```的维护。
 
