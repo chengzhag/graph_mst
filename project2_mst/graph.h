@@ -7,6 +7,7 @@
 #include <vector>
 #include <stack>
 #include <float.h>
+#include <math.h>
 
 
 using namespace std;
@@ -101,6 +102,7 @@ public:
 
 	void findAllRoute(int src, int dst);
 
+	void setMinWeightArcToTree(int src, int dst, WeightType w = 0);
 	bool primMST(Graph& mst);
 	
 	friend ostream& operator<<(ostream &os, const Graph &g);
@@ -133,6 +135,7 @@ public:
 		makeHeap();
 	};
 	int size();
+	int height();
 	bool empty();
 	HeapNodeType top();
 	void upBubble(int index);
@@ -140,5 +143,7 @@ public:
 	void makeHeap();
 	void pop();
 	void decreaseWeight(int index,WeightType w);
+
+	friend ostream& operator<<(ostream &os, MinHeap &g);
 };
 

@@ -144,6 +144,13 @@ void Graph::findAllRoute(int src, int dst)
 }
 
 
+void Graph::setMinWeightArcToTree(int src, int dst, WeightType w)
+{
+	vertexes[src].minWeightArcToTree.src = &(vertexes[src]);
+	vertexes[src].minWeightArcToTree.dst = &(vertexes[dst]);
+	vertexes[src].minWeightArcToTree.weight = w;
+}
+
 //************************************
 // Method:    depthFirstSearch
 // FullName:  Graph::depthFirstSearch
@@ -278,6 +285,11 @@ int MinHeap::size()
 	return container.size();
 }
 
+int MinHeap::height()
+{
+	return log10(size()+1)/log10(2);
+}
+
 bool MinHeap::empty()
 {
 	return container.empty();
@@ -344,4 +356,20 @@ void MinHeap::decreaseWeight(int index, WeightType w)
 		container[index]->minWeightArcToTree.weight = w;
 		upBubble(index);
 	}
+}
+
+ostream& operator<<(ostream &os, MinHeap &g) {
+	int i = 0;
+	for (int h = 0; h < g.height(); h++)
+	{
+		for (int j = 0; j < pow(2, h); j++)
+		{
+			cout << g.container[i]->minWeightArcToTree.weight << \
+				" (" << g.container[i]->minWeightArcToTree.weight << ") " << \
+				" ";
+			i++;
+		}
+		cout << endl;
+	}
+	return os;
 }
