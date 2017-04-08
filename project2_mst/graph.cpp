@@ -293,6 +293,7 @@ void MinHeap::upBubble(int index)
 	int i = index;
 	while (i > 1 && container[parent(i)] > container[i])
 	{
+		swap(container[i]->heapNodeIndex, container[parent(i)]->heapNodeIndex);
 		swap(container[i], container[parent(i)]);
 		i = parent(i);
 	}
@@ -314,6 +315,7 @@ void MinHeap::downBuble(int index)
 	}
 	if (min != index)
 	{
+		swap(container[min]->heapNodeIndex, container[index]->heapNodeIndex);
 		swap(container[min], container[index]);
 		downBuble(min);
 	}

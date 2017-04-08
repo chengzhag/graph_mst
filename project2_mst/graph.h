@@ -126,6 +126,10 @@ class MinHeap
 public:
 	MinHeap(vector<HeapNodeType>& data) :
 		container(data) {
+		for (int i = 0; i < size(); i++)
+		{
+			container[i]->heapNodeIndex = i;
+		}
 		makeHeap();
 	};
 	int size();
