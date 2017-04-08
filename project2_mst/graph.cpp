@@ -61,14 +61,7 @@ void Vertex::deleteAdj(Vertex &adj)
 
 void Vertex::addAdj(Vertex &adj,WeightType w)
 {
-	outArcs.push_back(Arc(*this, adj, w));
-}
-
-
-Vertex::Vertex(DataType dataInit)
-{
-	data = dataInit;
-	flagSearched = false;
+	outArcs.push_back(Arc(this, &adj, w));
 }
 
 
@@ -202,10 +195,10 @@ bool Graph::isConnectedDepthFirstSearch()
 //************************************
 
 //priority_queue<double, vector<Arc*>, Graph::GreaterArcPoint> heapArcToTree;
-//Arc a(Vertex(), Vertex(), 4);
-//Arc b(Vertex(), Vertex(), 3);
-//Arc c(Vertex(), Vertex(), 6);
-//Arc d(Vertex(), Vertex(), 5);
+//Arc a(*Vertex(), *Vertex(), 4);
+//Arc b(*Vertex(), *Vertex(), 3);
+//Arc c(*Vertex(), *Vertex(), 6);
+//Arc d(*Vertex(), *Vertex(), 5);
 //heapArcToTree.push(&a);
 //cout << heapArcToTree.top()->weight << endl;
 //heapArcToTree.push(&b);
@@ -256,4 +249,74 @@ void Graph::addVertex()
 {
 	vertexes.push_back(Vertex());
 	numVertex++;
+}
+
+
+
+int MinHeap::parent(int index)
+{
+	return (index - 1) / 2;
+}
+
+int MinHeap::left(int index)
+{
+	return index * 2+1;
+}
+
+int MinHeap::right(int index)
+{
+	return index * 2 + 2;
+}
+
+bool MinHeap::greater(HeapNodeType a, HeapNodeType b)
+{
+	//if (a->minWeightArcToTree==NULL)
+	//{
+	//	return true;
+	//}
+	//else if (b->minWeightArcToTree != NULL)
+	//{
+	//	return a->minWeightArcToTree->weight > b->minWeightArcToTree->weight;
+	//}
+	return true;
+}
+
+int MinHeap::size()
+{
+	return container.size();
+}
+
+bool MinHeap::empty()
+{
+	return container.empty();
+}
+
+HeapNodeType MinHeap::top()
+{
+	return container.front();
+}
+
+void MinHeap::upBubble(int index)
+{
+
+}
+
+void MinHeap::downBuble(int index)
+{
+	int l = left(index);
+	int r = right(index);
+	if (l < size() && greater(container[l], container[r]))
+	{
+
+	}
+}
+
+void MinHeap::makeHeap()
+{
+
+}
+
+void MinHeap::pop()
+{
+
 }
